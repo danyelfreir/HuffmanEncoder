@@ -1,19 +1,22 @@
 #pragma once
 #include <iostream>
-#include "../include/FSNode.h"
-#include "../include/PriorityQueue.h"
+
+#include "FSNode.h"
+#include "PriorityQueue.h"
 
 class FrequencySet {
-private:
+   private:
     FSNode *head;
     int size;
+    void deleteNodes(FSNode *root);
     FSNode *add(FSNode *root, char value);
-    void convertToQueue(FSNode *root, PriorityQueue *queue);
+    void addToQueue(FSNode *root, PriorityQueue *queue);
     void print(FSNode *root);
-public:
+
+   public:
     FrequencySet();
     ~FrequencySet();
     void add(char value);
-    void convertToQueue(PriorityQueue *queue);
+    void addToQueue(PriorityQueue *queue);
     void print();
 };

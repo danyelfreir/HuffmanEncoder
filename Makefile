@@ -1,9 +1,16 @@
-Encoder: *.o
-	g++ -std=c++11 obj/*.o -o Encoder
+CC := g++
+OFILES := obj/Node.o obj/FSNode.o obj/FrequencySet.o obj/PQNode.o obj/PriorityQueue.o obj/HCNode.o obj/HuffmanCoding.o obj/main.o
+CPPFILES := cpp/
+HFILES := include/
+FLAGS := -std=c++11 -I $(HFILES)
+TARGET := Encoder
 
-*.o: src/*.cpp include/*.h
-	g++ -std=c++11 -c src/*.cpp
-	mv *.o obj/
+
+$(TARGET): $(OFILES)
+	$(CC) $(FLAGS) $(OFILES) -o $@
+
+$(OFILES) : obj/%.o : src/%.cpp
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	rm obj/*.o Encoder
+	rm $(OFILES) Encoder

@@ -1,16 +1,18 @@
 #pragma once
 #include <iostream>
-#include "../include/PQNode.h"
+
+#include "PQNode.h"
 
 class PriorityQueue {
-private:
-    PQNode *head;
+   private:
     int _length;
-public:
+
+   public:
+    PQNode *head;
     PriorityQueue();
-    void push(PQNode *newNode);
-    int getHeadFreq();
-    char pop();
-    void print();
+    ~PriorityQueue();
+    void push(char value, int frequency);
+    PQNode *pop();
     int length();
+    void print();
 };

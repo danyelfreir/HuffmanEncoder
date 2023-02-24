@@ -1,11 +1,7 @@
 #include "../include/HCNode.h"
 
-HCNode::HCNode(int frequency) {
-    this->frequency = frequency;
-    this->left = nullptr;
-    this->right = nullptr;
-}
-
-bool HCNode::operator < (HCNode *that) {
-    return this->frequency < that->frequency;
+HCNode::HCNode(char value, int frequency, HCNode *left, HCNode *right) : Node(value, frequency) {
+    this->next = nullptr;
+    this->left = left;
+    this->right = right;
 }
