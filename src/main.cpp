@@ -1,30 +1,37 @@
 #include <fstream>
 
 #include "../include/FrequencySet.h"
-#include "../include/HuffmanCoding.h"
+#include "../include/HuffmanEncoding.h"
+#include "../include/HuffmanDecoding.h"
 #include "../include/PriorityQueue.h"
 
 int main() {
     FrequencySet *fs = new FrequencySet();
     PriorityQueue *pq = new PriorityQueue();
-    HuffmanCoding *hc = new HuffmanCoding();
+    HuffmanEncoding *hc = new HuffmanEncoding();
+    // HuffmanDecoding *hd = new HuffmanDecoding();
+    std::ifstream fin;
+    std::ofstream fout;
 
-    std::ifstream fin("data/large.txt", std::ios::binary);
+    fin.open("data/large.txt", std::ios::binary);
     char cur;
     while (fin.get(cur)) {
         fs->add(cur);
     }
-    std::cout << "From set: " << std::endl;
-    fs->print();
+    fin.close();
     fs->addToQueue(pq);
     delete fs;
-    std::cout << "From queue: " << std::endl;
-    pq->print();
     hc->populate(pq);
     delete pq;
-    hc->encode();
-    std::cout << "From huffmans: " << std::endl;
-    hc->print();
+    hc->generateHuffmanTree();
+    fin.open("data/large.txt", std::ios::binary);
+    fout.open("test.cmpr", std::ios::binary);
+    hc->encode(fout, fin);
+    fin.close();
+    fout.close();
+    fin.open("test.cmpr", std::ios::binary);
+    fout.open("test_out.txt");
+    // hc->decode(fout, fin);
 
     return 0;
 }
