@@ -1,37 +1,37 @@
+#include <string.h>
+
 #include <fstream>
+#include <string>
 
-#include "../include/FrequencySet.h"
-#include "../include/HuffmanEncoding.h"
-#include "../include/HuffmanDecoding.h"
-#include "../include/PriorityQueue.h"
+#include "../include/Decoder.h"
+#include "../include/Encoder.h"
+#include "../include/Huffman.h"
 
-int main() {
-    FrequencySet *fs = new FrequencySet();
-    PriorityQueue *pq = new PriorityQueue();
-    HuffmanEncoding *hc = new HuffmanEncoding();
-    // HuffmanDecoding *hd = new HuffmanDecoding();
-    std::ifstream fin;
-    std::ofstream fout;
-
-    fin.open("data/large.txt", std::ios::binary);
-    char cur;
-    while (fin.get(cur)) {
-        fs->add(cur);
+int main(int argc, char *argv[]) {
+    if (argc < 4) {
+        std::cout << "Missing arguments!"
+                  << "Need a compression/decompression flag (-c/-d)"
+                  << "An input file and an output file"
+                  << "Example: ./compressor -c myAudio.wav \
+                      myAudioCompressed.cmpr"
+                  << std::endl;
+        return -1;
     }
-    fin.close();
-    fs->addToQueue(pq);
-    delete fs;
-    hc->populate(pq);
-    delete pq;
-    hc->generateHuffmanTree();
-    fin.open("data/large.txt", std::ios::binary);
-    fout.open("test.cmpr", std::ios::binary);
-    hc->encode(fout, fin);
-    fin.close();
-    fout.close();
-    fin.open("test.cmpr", std::ios::binary);
-    fout.open("test_out.txt");
-    // hc->decode(fout, fin);
+    bool isCompressing = false;
+    bool isDecompressing = false;
+    if (strcmp(argv[1], "-c") == 0) isCompressing = true;
+    if (strcmp(argv[1], "-d") == 0) isDecompressing = true;
+    std::string inputFile(argv[2]);
+    std::string outputFile(argv[3]);
+
+    if (isCompressing) {
+        Encoder hc(inputFile, outputFile);
+        hc.encode();
+        hc.print();
+    } else if (isDecompressing) {
+        Decoder hd(inputFile, outputFile);
+        hd.readHeader();
+    }
 
     return 0;
 }

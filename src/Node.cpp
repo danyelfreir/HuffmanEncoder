@@ -1,10 +1,20 @@
 #include "../include/Node.h"
 
-Node::Node(char value, int frequency) {
-    this->_value = value;
+Node::Node(int frequency, bool isLeafNode, Node* left, Node *right) {
     this->_frequency = frequency;
+    this->_isLeafNode = isLeafNode;
+    this->left = left;
+    this->right = right;
 }
 
-char Node::value() { return this->_value; }
+int Node::frequency() {
+    return this->_frequency;
+}
 
-int Node::frequency() { return this->_frequency; }
+bool Node::isLeafNode() {
+    return this->_isLeafNode;
+}
+
+bool Node::operator<(Node *that) {
+    return this->_frequency < that->frequency();
+}

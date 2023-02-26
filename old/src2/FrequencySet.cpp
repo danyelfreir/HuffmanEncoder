@@ -13,6 +13,8 @@ void FrequencySet::deleteNodes(FSNode *root) {
     delete root;
 }
 
+bool FrequencySet::empty() { return this->size == 0; }
+
 void FrequencySet::add(char value) { this->head = this->add(this->head, value); }
 
 FSNode *FrequencySet::add(FSNode *root, char value) {
@@ -30,14 +32,33 @@ FSNode *FrequencySet::add(FSNode *root, char value) {
     return root;
 }
 
-void FrequencySet::addToQueue(PriorityQueue *queue) { addToQueue(this->head, queue); }
+void FrequencySet::next(std::pair<char, int> &nextPair) { this->head = this->next(this->head, nextPair); }
 
-void FrequencySet::addToQueue(FSNode *root, PriorityQueue *queue) {
-    if (!root) return;
-    if (root->left) addToQueue(root->left, queue);
-    if (root->right) addToQueue(root->right, queue);
-    queue->push(root->value(), root->frequency());
+FSNode *FrequencySet::next(FSNode *root, std::pair<char, int> &nextPair) {
+    if (root->left) root->left = this->next(root->left, nextPair);
+    if (root->right) root->right = this->next(root->right, nextPair);
+    nextPair.first = root->value();
+    nextPair.second = root->frequency();
+    delete root;
+    root = nullptr;
+    return root;
 }
+
+// void FrequencySet::deleteNode(FSNode *node, ) {
+//     this->size--;
+//     std::cout << node->value() << " -> " << node->frequency() << std::endl;
+//     delete node;
+//     node = nullptr;
+// }
+
+// void FrequencySet::addToQueue(HuffmanEncoding *queue) { addToQueue(this->head, queue); }
+
+// void FrequencySet::addToQueue(FSNode *root, HuffmanEncoding *queue) {
+//     if (!root) return;
+//     if (root->left) addToQueue(root->left, queue);
+//     if (root->right) addToQueue(root->right, queue);
+//     queue->push(root->value(), root->frequency());
+// }
 
 void FrequencySet::print() { this->print(this->head); }
 

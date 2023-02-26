@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "FSNode.h"
-#include "PriorityQueue.h"
 
 class FrequencySet {
    private:
@@ -10,13 +9,17 @@ class FrequencySet {
     int size;
     void deleteNodes(FSNode *root);
     FSNode *add(FSNode *root, char value);
-    void addToQueue(FSNode *root, PriorityQueue *queue);
+    FSNode *next(FSNode *root, std::pair<char, int> &nextPair);
+    // void addToQueue(FSNode *root, HuffmanEncoding *queue);
     void print(FSNode *root);
 
    public:
     FrequencySet();
     ~FrequencySet();
+    bool empty();
     void add(char value);
-    void addToQueue(PriorityQueue *queue);
+    void next(std::pair<char, int> &nextPair);
+    void deleteNode(FSNode *node);
+    // void addToQueue(HuffmanEncoding *queue);
     void print();
 };
