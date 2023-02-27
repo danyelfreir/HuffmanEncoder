@@ -1,14 +1,14 @@
 #pragma once
 
 class Node {
-protected:
-    int _frequency;
+   protected:
+    unsigned int _frequency;
     bool _isLeafNode;
 
-public:
+   public:
     Node(int frequency, bool isLeafNode, Node *left, Node *right);
     Node *left, *right;
-    int frequency();
+    unsigned int frequency();
     bool isLeafNode();
     bool operator<(Node *that);
 };

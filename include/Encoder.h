@@ -5,6 +5,7 @@
 #include <queue>
 #include <string>
 #include <vector>
+#include <map>
 
 #include "Huffman.h"
 #include "Node.h"
@@ -15,11 +16,11 @@ class Encoder {
     std::ifstream fin;
     std::ofstream fout;
     unsigned int frequencyTable[MAX_CHAR_VAL];
-    unsigned char numOfSymbols;
     Huffman huffman;
+    std::map<char, std::string> huffmanCodes;
     void readFile();
     void writeHeader();
-    void print(Node *root);
+    void writeBody();
 
    public:
     Encoder(std::string inputFile, std::string outputFile);

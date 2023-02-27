@@ -1,3 +1,6 @@
 .vscode
+old
+*.zip
 PA3_vA
 PA3_vB
+.DS_Store

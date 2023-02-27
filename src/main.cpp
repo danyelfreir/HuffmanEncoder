@@ -27,10 +27,9 @@ int main(int argc, char *argv[]) {
     if (isCompressing) {
         Encoder hc(inputFile, outputFile);
         hc.encode();
-        hc.print();
     } else if (isDecompressing) {
         Decoder hd(inputFile, outputFile);
-        hd.readHeader();
+        hd.decode();
     }
 
     return 0;

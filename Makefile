@@ -3,7 +3,7 @@ OFILES := obj/Node.o obj/HuffmanNode.o obj/HuffmanLeaf.o obj/Huffman.o obj/Encod
 CPPFILES := cpp/
 HFILES := include/
 FLAGS := -std=c++11 -I $(HFILES)
-TARGET := Encoder
+TARGET := compressor
 
 
 $(TARGET): $(OFILES)
@@ -13,4 +13,4 @@ $(OFILES) : obj/%.o : src/%.cpp
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	rm $(OFILES) Encoder
+	rm $(OFILES) compressor
